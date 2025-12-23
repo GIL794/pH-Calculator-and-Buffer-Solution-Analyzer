@@ -148,7 +148,7 @@ def demo_conversions():
     pKa = COMMON_ACIDS['acetic_acid']['pKa']
     Ka = calculator.Ka_from_pKa(pKa)
     Kb = calculator.Kb_from_Ka(Ka)
-    pKb = -math.log10(Kb)
+    pKb = calculator.pKb_from_Kb(Kb)
     
     print(f"  Acetic acid:  pKa = {pKa:.2f}, Ka = {Ka:.2e}")
     print(f"  Acetate ion:  pKb = {pKb:.2f}, Kb = {Kb:.2e}")
@@ -157,7 +157,7 @@ def demo_conversions():
     # Example with ammonia
     print("\nAmmonia / Ammonium System:")
     pKb = COMMON_BASES['ammonia']['pKb']
-    Kb = 10 ** (-pKb)
+    Kb = calculator.Kb_from_pKb(pKb)
     Ka = calculator.Ka_from_Kb(Kb)
     pKa = calculator.pKa_from_Ka(Ka)
     

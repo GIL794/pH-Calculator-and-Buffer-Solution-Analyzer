@@ -43,6 +43,22 @@ def get_float_input(prompt):
             print("Invalid input. Please enter a number.")
 
 
+def get_int_input(prompt, min_val=None, max_val=None):
+    """Get an integer input from the user with error handling and bounds checking."""
+    while True:
+        try:
+            value = int(input(prompt))
+            if min_val is not None and value < min_val:
+                print(f"Invalid input. Please enter a number >= {min_val}.")
+                continue
+            if max_val is not None and value > max_val:
+                print(f"Invalid input. Please enter a number <= {max_val}.")
+                continue
+            return value
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+
+
 def strong_acid_calculation(calculator):
     """Handle strong acid pH calculation."""
     print("\n--- Strong Acid pH Calculation ---")
@@ -84,7 +100,7 @@ def weak_acid_calculation(calculator):
         for i, (key, acid) in enumerate(COMMON_ACIDS.items(), 1):
             print(f"  {i}. {acid['name']} (pKa = {acid['pKa']})")
         
-        choice = int(get_float_input("\nSelect an acid (number): "))
+        choice = get_int_input("\nSelect an acid (number): ", min_val=1, max_val=len(COMMON_ACIDS))
         acid_key = list(COMMON_ACIDS.keys())[choice - 1]
         pKa = COMMON_ACIDS[acid_key]['pKa']
         Ka = calculator.Ka_from_pKa(pKa)
@@ -125,20 +141,20 @@ def weak_base_calculation(calculator):
         for i, (key, base) in enumerate(COMMON_BASES.items(), 1):
             print(f"  {i}. {base['name']} (pKb = {base['pKb']})")
         
-        choice = int(get_float_input("\nSelect a base (number): "))
+        choice = get_int_input("\nSelect a base (number): ", min_val=1, max_val=len(COMMON_BASES))
         base_key = list(COMMON_BASES.keys())[choice - 1]
         pKb = COMMON_BASES[base_key]['pKb']
-        Kb = 10 ** (-pKb)
+        Kb = calculator.Kb_from_pKb(pKb)
         print(f"Selected: {COMMON_BASES[base_key]['name']}")
     else:
         print("\nEnter Kb or pKb? (kb/pkb): ", end="")
         choice = input().strip().lower()
         if choice == 'pkb':
             pKb = get_float_input("Enter the pKb value: ")
-            Kb = 10 ** (-pKb)
+            Kb = calculator.Kb_from_pKb(pKb)
         else:
             Kb = get_float_input("Enter the Kb value: ")
-            pKb = -calculator.pKa_from_Ka(Kb)  # Using same function since math is same
+            pKb = calculator.pKb_from_Kb(Kb)
     
     concentration = get_float_input("Enter the concentration of the weak base (M): ")
     
@@ -166,7 +182,7 @@ def henderson_hasselbalch_calculation(calculator):
         for i, (key, acid) in enumerate(COMMON_ACIDS.items(), 1):
             print(f"  {i}. {acid['name']} (pKa = {acid['pKa']})")
         
-        choice = int(get_float_input("\nSelect an acid (number): "))
+        choice = get_int_input("\nSelect an acid (number): ", min_val=1, max_val=len(COMMON_ACIDS))
         acid_key = list(COMMON_ACIDS.keys())[choice - 1]
         pKa = COMMON_ACIDS[acid_key]['pKa']
         print(f"Selected: {COMMON_ACIDS[acid_key]['name']}")
@@ -210,7 +226,7 @@ def buffer_preparation_calculation(calculator):
         for i, (key, acid) in enumerate(COMMON_ACIDS.items(), 1):
             print(f"  {i}. {acid['name']} (pKa = {acid['pKa']})")
         
-        choice = int(get_float_input("\nSelect an acid (number): "))
+        choice = get_int_input("\nSelect an acid (number): ", min_val=1, max_val=len(COMMON_ACIDS))
         acid_key = list(COMMON_ACIDS.keys())[choice - 1]
         pKa = COMMON_ACIDS[acid_key]['pKa']
         acid_name = COMMON_ACIDS[acid_key]['name']
@@ -281,7 +297,7 @@ def convert_constants(calculator):
     print("3. Calculate Kb from Ka")
     print("4. Calculate Ka from Kb")
     
-    choice = int(get_float_input("\nSelect conversion (number): "))
+    choice = get_int_input("\nSelect conversion (number): ", min_val=1, max_val=4)
     
     if choice == 1:
         Ka = get_float_input("Enter Ka value: ")
@@ -298,7 +314,7 @@ def convert_constants(calculator):
         Ka = get_float_input("Enter Ka value: ")
         try:
             Kb = calculator.Kb_from_Ka(Ka)
-            pKb = -calculator.pKa_from_Ka(Kb)
+            pKb = calculator.pKb_from_Kb(Kb)
             print(f"\nResult: Ka = {Ka:.2e} → Kb = {Kb:.2e} (pKb = {pKb:.2f})")
         except ValueError as e:
             print(f"Error: {e}")

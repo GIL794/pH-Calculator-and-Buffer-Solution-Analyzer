@@ -246,6 +246,35 @@ class pHCalculator:
         if Kb <= 0:
             raise ValueError("Kb must be positive")
         return self.Kw / Kb
+    
+    def Kb_from_pKb(self, pKb):
+        """
+        Convert pKb to Kb.
+        
+        Args:
+            pKb (float): pKb value
+            
+        Returns:
+            float: Kb value
+        """
+        return 10 ** (-pKb)
+    
+    def pKb_from_Kb(self, Kb):
+        """
+        Convert Kb to pKb.
+        
+        Args:
+            Kb (float): Kb value
+            
+        Returns:
+            float: pKb value
+            
+        Raises:
+            ValueError: If Kb is not positive
+        """
+        if Kb <= 0:
+            raise ValueError("Kb must be positive")
+        return -math.log10(Kb)
 
 
 # Common acid/base constants

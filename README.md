@@ -46,6 +46,108 @@ The CLI provides a menu-driven interface for:
 7. Viewing common acids and bases
 8. Converting between Ka and pKa values
 
+### Interface Preview
+
+**Main Menu:**
+```
+======================================================================
+              pH Calculator and Buffer Solution Analyzer              
+======================================================================
+
+Welcome to the pH Calculator and Buffer Solution Analyzer!
+This tool helps you calculate pH values and design buffer solutions.
+
+Main Menu:
+1. Calculate pH of Strong Acid
+2. Calculate pH of Strong Base
+3. Calculate pH of Weak Acid
+4. Calculate pH of Weak Base
+5. Calculate pH of Buffer Solution (Henderson-Hasselbalch)
+6. Design Buffer Solution (Calculate Concentrations for Target pH)
+7. View Common Acids and Bases
+8. Convert between Ka and pKa
+9. Exit
+
+Enter your choice (1-9):
+```
+
+**Example: Strong Acid pH Calculation**
+```
+--- Strong Acid pH Calculation ---
+Enter the concentration of the strong acid (M): 0.1
+
+Result:
+  Concentration: 0.1 M
+  pH: 1.00
+```
+
+**Example: Buffer Solution Design**
+```
+--- Buffer Solution Preparation ---
+Calculate concentrations needed to achieve a target pH
+
+Use a common acid? (y/n): y
+
+Common Acids:
+  1. Acetic Acid (CH3COOH) (pKa = 4.76)
+  2. Formic Acid (HCOOH) (pKa = 3.75)
+  3. Benzoic Acid (C6H5COOH) (pKa = 4.2)
+  4. Carbonic Acid (H2CO3) (pKa = 6.35)
+  5. Phosphoric Acid (H3PO4) (pKa = 2.15)
+  6. Citric Acid (pKa = 3.13)
+
+Select an acid (number): 1
+Selected: Acetic Acid (CH3COOH)
+Enter the target pH: 5.0
+Enter the total volume (L): 1.0
+Enter the total buffer concentration (M): 0.2
+
+Buffer Preparation Recipe:
+  Target pH: 5.0
+  pKa: 4.76
+  Total Volume: 1.0 L
+  Total Concentration: 0.2 M
+
+  Required Concentrations:
+    Weak Acid [HA]: 0.0731 M
+    Conjugate Base [A-]: 0.1269 M
+
+  Required Amounts:
+    Weak Acid: 0.0731 moles
+    Conjugate Base: 0.1269 moles
+
+  Ratio [A-]/[HA]: 1.7378
+
+  Good choice! This buffer will have good capacity at pH 5.0.
+```
+
+**Example: Viewing Common Acids and Bases**
+```
+--- Common Acids and Bases ---
+
+Common Acids:
+  Acetic Acid (CH3COOH)
+    pKa = 4.76, Ka = 1.74e-05
+  Formic Acid (HCOOH)
+    pKa = 3.75, Ka = 1.78e-04
+  Benzoic Acid (C6H5COOH)
+    pKa = 4.20, Ka = 6.31e-05
+  Carbonic Acid (H2CO3)
+    pKa = 6.35, Ka = 4.47e-07
+  Phosphoric Acid (H3PO4)
+    pKa = 2.15, Ka = 7.08e-03
+  Citric Acid
+    pKa = 3.13, Ka = 7.41e-04
+
+Common Bases:
+  Ammonia (NH3)
+    pKb = 4.75, Kb = 1.78e-05
+  Methylamine (CH3NH2)
+    pKb = 3.36, Kb = 4.37e-04
+  Pyridine (C5H5N)
+    pKb = 8.75, Kb = 1.78e-09
+```
+
 ### Python Module
 
 Import and use the calculator in your Python code:

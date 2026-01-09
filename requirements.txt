@@ -1,0 +1,3 @@
+# pH Calculator and Buffer Solution Analyzer - Requirements
+# No external dependencies required - uses only Python standard library
+# Python 3.6 or higher recommended
